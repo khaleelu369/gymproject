@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BMI Calculator Result</title>
+</head>
+<body>
+  <h1>BMI Calculator Result</h1>
+  <p>Your BMI: {{ bmi }}</p>
+  <p>Weight Status: {{ weight_status }}</p>
+  
+  <button onclick="goBack()">Go Back</button>
+
+  <script>
+    function goBack() {
+      window.history.back();
+    }
+  </script>
+</body>
+</html>
+

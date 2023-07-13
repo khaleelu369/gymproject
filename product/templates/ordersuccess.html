@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Complete</title>
+    <style>
+        /* CSS styles */
+
+        /* ... your existing styles ... */
+        .card {
+            width: 800px;
+            height: 300px;
+            padding: 20px;
+            margin: 0 auto;
+            background-color: lightgreen;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .card h1 {
+            font-size: 24px;
+        }
+
+        .card p {
+            font-weight: bold;
+        }
+
+        .button {
+            margin-top: 50px;
+        }
+
+        .button a {
+            width: 150px;
+            height: 20px;
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0e27b5;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button a:hover {
+            background-color: #6e56e3;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Order Completed</h1>
+        <h1><b>Thank you for your order. Your order has been successfully placed.</b></h1>
+        <div class="button">
+            <a href="{% url 'myaccount' %}"><b>View Order</b></a>
+        </div>
+    </div>
+</body>
+</html>

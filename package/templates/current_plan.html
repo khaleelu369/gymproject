@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Current Plan
+{% endblock  %}
+
+{% block content %}
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title">Current Plan</h2>
+          {% if plan %}
+          <div class="plan-details">
+            <h3>{{ plan.name }}</h3>
+            <p class="plan-price">${{ plan.price }}</p>
+            <p class="plan-description">{{ plan.description }}</p>
+            <!-- Add more plan details here -->
+
+            <p>Purchase Date: {{ plan.start_date }}</p>
+            <p>Expiration Date: {{ plan.end_date }}</p>
+
+            <form method="post" action="{% url 'cancel_plan' plan.id %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger">Cancel Plan</button>
+            </form>
+          </div>
+          {% else %}
+          <p>No current plan found.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+
+
+
+
+{% comment %} {% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+package
+{% endblock  %}
+
+{% block content %}
+<!-- Hero Start -->
+<!-- Your hero content here -->
+<!-- Hero End -->
+
+<!-- Pricing area start -->
+<section class="pricing-area section-padding30 fix">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="section-tittle text-center mb-55">
+                    <h2>Pricing</h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            {% if plan %}
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="properties mb-30">
+                    <div class="properties__card">
+                        <div class="about-icon">
+                            <img src="assets/img/icon/price.svg" alt="">
+                        </div>
+                        <div class="properties__caption">
+                            <span class="month">{{ plan.duration }} Month</span>
+                            <p class="mb-25">${{ plan.price }} <span>(Single class)</span></p>
+                            <!-- Add plan features and details here -->
+
+                            <a href="{% url 'cancel_plan' cancel_plan_id %}" class="border-btn border-btn2">Cancel Plan</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% else %}
+            <!-- Display available plans if user doesn't have a current plan -->
+            {% for plan in plans %}
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <!-- Plan card HTML structure -->
+            </div>
+            {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+<!-- Pricing area end -->
+{% endblock content %} {% endcomment %}

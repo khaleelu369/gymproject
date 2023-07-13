@@ -1,0 +1,39 @@
+{% extends 'base.html' %} 
+{% block title %}
+product
+{% endblock  %}
+
+{% block content %}
+
+
+<section class="section-name padding-y-sm">
+    <div class="section-heading">
+        <header class="section-heading">
+            <h3 class="section-title" style="text-align: center; font-size: xx-large;">
+                <u style="color: rgb(94, 194, 227);">WEGHT PRODUCTS</u>
+            </h3>
+        </header>
+
+        <div class="d-flex">
+            {% for product in weightprod %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{% url 'detail' %}" class="img-wrap">
+                        <img src="{{ product.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <a href="{% url 'detail' %}" class="title" style="color: rgb(227, 59, 59); font-size: x-large;">
+                            {{ product.product_name }}
+                        </a>
+                        <div class="price mt-1" style=" font-size: xx-large;">
+                            $ {{ product.price }}
+                        </div>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

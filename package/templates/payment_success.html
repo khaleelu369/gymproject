@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Payment Success
+{% endblock  %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <h2>Payment Successful</h2>
+        <p>Thank you for your purchase.</p>
+        <p>Your payment has been successfully processed.</p>
+    </div>
+</div>
+
+<!-- Add a "Current Plan" button -->
+<div class="text-center mt-4">
+    <a href="{% url 'current_plan' %}" class="btn btn-primary">Current Plan</a>
+</div>
+{% endblock content %}
+

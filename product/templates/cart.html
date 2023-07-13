@@ -1,0 +1,125 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+cart
+{% endblock  %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+    {% if not cart_items %}
+    <div style="background-color: azure; height: 200px;">
+     <h2 class="text-center" style="color: rgb(9, 16, 1);">Your shopping cart is empty</h2>
+     <br>
+     <div class="text-center">
+        <a href="{% url 'index' %}" class="btn btn-primary">Continue shopping</a>
+     </div>
+    </div>
+    {% else %}
+    
+    <div class="row">
+        <aside class="col-lg-9">
+    <div class="card">
+    <table class="table table-borderless table-shopping-cart">
+    <thead class="text-muted">
+    <tr class="small text-uppercase">
+      <th scope="col">Product</th>
+      <th scope="col" width="300">Quantity</th>
+      <th scope="col" width="120">Price</th>
+      <th scope="col" class="text-right" width="200"> </th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    {% for car_t in cart_items %}    
+    <tr>
+        <td>
+            <figure class="itemside align-items-center">
+                <div class="aside"><img src="{{ car_t.product.images.url }}" class="img-sm"></div>
+                <figcaption class="info">
+                    <a href="{{ car_t.product.get_url }}" class="title text-dark">{{ car_t.product.product_name }}</a>
+                    <p class="text-muted small">Flavour: 25 Mpx <br> Brand: Canon</p>
+                </figcaption>
+            </figure>
+        </td>
+        <td> 
+            <!-- col.// -->
+            <!-- <div class="my-3">
+                
+                <a class="minus-cart btn"><i class="fas fa-minus-square fa-lg"></i></a>
+                <span id="quantity">{{ car_t.quantity }}</span>
+                <a class="plus-cart btn"><i class="fas fa-plus-square fa-lg"></i></a>
+            </div> -->
+                         <div class="col-12"> 
+                            <div class="input-group input-spinner">
+                                <div class="input-group-prepend">
+                                 <a href="{% url 'remove_cart' car_t.product.id %}" class="minus-cart btn" type="button" id="button-plus"> <i class="fas fa-minus-square fa-lg"></i> </a>
+                                </div >
+                                
+                                <input type="text" class="form-control"  value="{{ car_t.quantity }}" style=" width: 30px; height: 100px; color: rgb(4, 8, 0); background-color: rgb(227, 132, 9);">
+                                
+                                
+
+                                <div class="input-group-append">
+                                 <a href="{% url 'add_cart' car_t.product.id %}" class="btn btn-light" type="button" id="button-minus"> <i class="fas fa-plus"></i> </a>
+                                </div>
+                            </div> <!-- input-group.// -->
+                        </div> <!-- col.// --> 
+        </td>
+        <td> 
+            <div class="price-wrap"> 
+                <var class="price">${{ car_t.sub_total }}</var> 
+                <small class="text-muted"> ${{ car_t.product.price }} each </small> 
+            </div> <!-- price-wrap .// -->
+        </td>
+        <td class="text-right"> 
+        <a href="{% url 'remove_cart_item' car_t.product.id %}" class="btn btn-danger"> Remove</a>
+        </td>
+    </tr>
+
+    {% endfor %}
+    
+    </tbody>
+    </table>
+    </div> <!-- card.// -->
+    
+        </aside> <!-- col.// -->
+        <aside class="col-lg-3">
+    
+            <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                  <dt>Total price:</dt>
+                  <dd class="text-right">${{total}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Tax:</dt>
+                  <dd class="text-right"> ${{ tax }}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Grand Total:</dt>
+                  <dd class="text-right text-dark b"><strong>${{grand_total}}</strong></dd>
+                </dl>
+                <hr>
+                <p class="text-center mb-3">
+                    <img src="{% static '/images/payments.png' %}" height="26">
+                </p>
+                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Checkout </a>
+                <a href=" {% url 'index' %} " class="btn btn-light btn-block">Continue Shopping</a>
+            </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+    
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+    {% endif %}
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+
+    {% endblock content %}    

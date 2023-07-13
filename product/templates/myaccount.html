@@ -1,0 +1,46 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+my account
+{% endblock  %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg">
+
+    <div class="container">
+        <div class="row">
+         {% include 'dashboard.html'  %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header">
+                <strong class="d-inline-block mr-3">WELCOME</strong>
+                {% comment %} <span>{{ user.fullname}}</span> {% endcomment %}
+            </header>
+            <div class="card-body">
+                <div class="row"> 
+                   <div class="col-md-8">
+                     <div class="card" style="text-align: center;">
+                        <div class="card-body">
+                            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Photo" title="Profile Photo" width="50" height="50" style="border-radius: 50%;">
+                            <p class="mb-0">{{user.username}}</p>
+                            <p>{{user.email}}</p>
+                            
+
+                     </div>
+                        </div>
+
+                    </div>
+                    
+                </div> <!-- row.// -->
+            </div> <!-- card-body .// -->
+           
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+    
+    {% endblock content %}  

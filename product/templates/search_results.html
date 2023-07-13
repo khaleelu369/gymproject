@@ -1,0 +1,37 @@
+<!-- search_results.html -->
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}
+Search
+{% endblock %}
+
+{% block content %}
+<head>
+  <style>
+    h1, h2, p {
+      color: white;
+    }
+
+    .no-results {
+      color: white;
+      font-style: italic;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Search Results</h1>
+
+  {% for product in products %}
+    <h2>{{ product.product_name }}</h2>
+    {% if product.images %}
+      <img src="{{ product.images.url }}" alt="{{ product.product_name }}">
+    {% endif %}
+    <p>{{ product.description }}</p>
+  {% empty %}
+    <p class="no-results">No products found.</p>
+  {% endfor %}
+</body>
+{% endblock %}
+

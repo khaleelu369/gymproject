@@ -1,0 +1,517 @@
+{% comment %} {% extends 'base.html' %} 
+{% block title %}
+product
+{% endblock  %}
+
+{% block content %}
+
+
+<section class="section-name padding-y-sm">
+    <div class="section-heading">
+        <header class="section-heading">
+            <h3 class="section-title" style="text-align: center; font-size: xx-large;">
+                <u style="color: rgb(94, 194, 227);">PROTEIN POWDER PRODUCTS</u>
+            </h3>
+        </header>
+
+        <div class="d-flex">
+            {% for product in prod %}
+            <div class="col-md-3">
+                <div class="card card-product-grid">
+                    <a href="{% url 'product_detail' %}" class="img-wrap">
+                        <img src="{{ product.images.url }}">
+                    </a>
+                    <figcaption class="info-wrap">
+                        <a href="{% url 'detail' %}" class="title" style="color: rgb(227, 59, 59); font-size: x-large;">
+                            {{ product.product_name }}
+                        </a>
+                        <div class="price mt-1" style=" font-size: xx-large;">
+                            $ {{ product.price }}
+                        </div>
+                    </figcaption>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock content %} {% endcomment %}
+
+
+
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}
+cart
+{% endblock  %}
+
+{% block content %}
+
+<section class="section-content padding-y bg">
+    <div class="container">
+    
+    <!-- ============================ COMPONENT 1 ================================= -->
+    
+    <h4 class="text-center mb-5"><u  style="color: azure;">Review your Order and Make payment</h4></u>
+    <div class="row">
+        <aside class="col-lg-8">
+          
+            <div class="card" >
+                {% comment %} <img class="card-img-top" src="..." alt="Card image cap"> {% endcomment %}
+                <div class="card-body">
+                  <h5 class="card-title">Billing Address</h5>
+                  <p class="card-text mb-0">{{order.first_name}} {{order.last_name}}</p>
+                  <p class="card-text mb-0">{{order.full_address}}</p>
+                  <p class="card-text mb-0">{{order.city}},{{order.state}}</p>
+                  <p class="card-text mb-0">{{order.country}}</p>
+                  <p class="card-text mb-0">{{order.email}}</p>
+                  <p class="card-text mb-0">{{order.phone}}</p>
+                  
+                </div>
+              </div>
+              <div class="card" >
+                <div class="card-body">
+                  <h5 class="card-title">Payment Method</h5>
+                  <p class="card-text">RazerPay</p>
+                  
+                </div>
+              </div>
+              <div class="card" >
+               
+                <div class="card-body">
+                  <h5 class="card-title">Review Products</h5>
+                  <table class="table table-borderless table-shopping-cart">
+                    <thead class="text-muted">
+                    <tr class="small text-uppercase">
+                      <th scope="col">Product</th>
+                      <th scope="col" width="300">Quantity</th>
+                      <th scope="col" width="120">Price</th>
+                     
+                    </tr>
+                    </thead>
+                    <tbody>
+                    
+                    {% for car_t in cart_items %}    
+                    <tr>
+                        <td>
+                            <figure class="itemside align-items-center">
+                                <div class="aside"><img src="{{ car_t.product.images.url }}" class="img-sm"></div>
+                                <figcaption class="info">
+                                    <a href="{{ car_t.product.get_url }}" class="title text-dark">{{ car_t.product.product_name }}</a>
+                                    <p class="text-muted small">Flavour: 25 Mpx <br> Brand: Canon</p>
+                                </figcaption>
+                            </figure>
+                        </td>
+                        <td style="font-weight: bolder;"> 
+                            <label for="">{{ car_t.quantity }}</label>
+                                          
+                        </td>
+                        <td style="font-weight: bolder;"> 
+                            <div class="price-wrap"> 
+                                <var class="price">${{ car_t.sub_total }}</var> 
+                                <small class="text-muted"> ${{ car_t.product.price }} each </small> 
+                            </div> <!-- price-wrap .// -->
+                        </td>
+                       
+                    </tr>
+                
+                    {% endfor %}
+                    
+                    </tbody>
+                    </table>
+                  
+                </div>
+              </div>
+    
+        </aside> <!-- col.// -->
+        <aside class="col-lg-4">
+    
+            <div class="card">
+            <div class="card-body">
+                <dl class="dlist-align">
+                  <dt>Total price:</dt>
+                  <dd class="text-right">${{total}}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Tax:</dt>
+                  <dd class="text-right"> ${{ tax }}</dd>
+                </dl>
+                <dl class="dlist-align">
+                  <dt>Grand Total:</dt>
+                  <dd class="text-right text-dark b"><strong>${{grand_total}}</strong></dd>
+                </dl>
+                <hr>
+                <p class="text-center mb-3">
+                    <img src="{% static '/images/payments.png' %}" height="26">
+                </p>
+                <a href="{% url 'checkout' %}" class="btn btn-primary btn-block"> Make Payment </a>
+               
+            </div> <!-- card-body.// -->
+            </div> <!-- card.// -->
+    
+    </aside> <!-- col.// -->
+    
+    
+    </div> <!-- row.// -->
+  
+    <!-- ============================ COMPONENT 1 END .// ================================= -->
+    
+    </div> <!-- container .//  -->
+    </section>
+
+    {% endblock content %} 
+    
+    <!-- {% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}
+cart
+{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+
+        <!-- ============================ COMPONENT 1 ================================= -->
+
+        <h4 class="text-center mb-5"><u style="color: azure;">Review your Order and Make payment</u></h4>
+        <div class="row">
+            <aside class="col-lg-8">
+
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title">Billing Address</h5>
+                    <p class="card-text mb-0">{{ order.first_name }} {{ order.last_name }}</p>
+                    <p class="card-text mb-0">{{ order.full_address }}</p>
+                    <p class="card-text mb-0">{{ order.city }}, {{ order.state }}</p>
+                    <p class="card-text mb-0">{{ order.country }}</p>
+                    <p class="card-text mb-0">{{ order.email }}</p>
+                    <p class="card-text mb-0">{{ order.phone }}</p>
+                  </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Payment Method</h5>
+                        <p class="card-text">RazerPay</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Review Products</h5>
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="300">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for car_t in cart_items %}
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img src="{{ car_t.product.images.url }}" class="img-sm"></div>
+                                            <figcaption class="info">
+                                                <a href="{{ car_t.product.get_url }}" class="title text-dark">{{ car_t.product.product_name }}</a>
+                                                <p class="text-muted small">Flavour: 25 Mpx <br> Brand: Canon</p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td style="font-weight: bolder;">
+                                        <label for="">{{ car_t.quantity }}</label>
+                                    </td>
+                                    <td style="font-weight: bolder;">
+                                        <div class="price-wrap">
+                                            <var class="price">${{ car_t.sub_total }}</var>
+                                            <small class="text-muted"> ${{ car_t.product.price }} each </small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </aside>
+
+            <aside class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">${{ total }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:</dt>
+                            <dd class="text-right"> ${{ tax }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Grand Total:</dt>
+                            <dd class="text-right text-dark b"><strong>${{ grand_total }}</strong></dd>
+                        </dl>
+                    </div>
+                    
+                        <hr>
+                        <p class="text-center mb-3">
+                            <img src="{% static '/images/payments.png' %}" height="26">
+                        </p>
+                        <!-- Add the Razorpay payment form here -->
+                        <form action="{% url 'payment' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="amount" value="{{ amount }}">
+                            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                data-key="{{ settings.rzp_test_0wKkzO70vA65D5}}"
+                                data-amount="{{ amount }}"
+                                data-currency="{{ order_currency }}"
+                                data-name="Your Company Name"
+                                data-description="Order Payment"
+                                data-image="{% static '/images/logo.png' %}"
+                                data-order_id="{{ order.id }}"
+                                data-prefill.name="{{ order.first_name }} {{ order.last_name }}"
+                                data-prefill.email="{{ order.email }}"
+                                data-theme.color="#F37254">
+                            </script>
+                            <button type="submit" class="btn btn-primary btn-block">Make Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+
+    </div>
+</section>
+{% endblock content %} -->
+
+
+
+
+
+
+{% comment %} 
+{% extends 'base.html' %} 
+{% load static %}
+
+{% block title %}
+Payment
+{% endblock %}
+
+{% block content %}
+<section class="section-content padding-y bg">
+    <div class="container">
+        <h4 class="text-center mb-5"><u style="color: azure;">Review your Order and Make payment</u></h4>
+        <div class="row">
+            <aside class="col-lg-8">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Billing Address</h5>
+                        <p class="card-text mb-0">{{ order.first_name }} {{ order.last_name }}</p>
+                        <p class="card-text mb-0">{{ order.full_address }}</p>
+                        <p class="card-text mb-0">{{ order.city }}, {{ order.state }}</p>
+                        <p class="card-text mb-0">{{ order.country }}</p>
+                        <p class="card-text mb-0">{{ order.email }}</p>
+                        <p class="card-text mb-0">{{ order.phone }}</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Payment Method</h5>
+                        <p class="card-text">RazorPay</p>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Review Products</h5>
+                        <table class="table table-borderless table-shopping-cart">
+                            <thead class="text-muted">
+                                <tr class="small text-uppercase">
+                                    <th scope="col">Product</th>
+                                    <th scope="col" width="300">Quantity</th>
+                                    <th scope="col" width="120">Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order_product in order.order_products.all %}
+                                <tr>
+                                    <td>
+                                        <figure class="itemside align-items-center">
+                                            <div class="aside"><img src="{{ order_product.product.images.url }}" class="img-sm"></div>
+                                            <figcaption class="info">
+                                                <a href="{{ order_product.product.get_url }}" class="title text-dark">{{ order_product.product.product_name }}</a>
+                                                <p class="text-muted small">Flavour: 25 Mpx <br> Brand: Canon</p>
+                                            </figcaption>
+                                        </figure>
+                                    </td>
+                                    <td style="font-weight: bolder;">
+                                        <label for="">{{ order_product.quantity }}</label>
+                                    </td>
+                                    <td style="font-weight: bolder;">
+                                        <div class="price-wrap">
+                                            <var class="price">${{ order_product.product_price }}</var>
+                                            <small class="text-muted"> ${{ order_product.product.price }} each </small>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </aside>
+
+            <aside class="col-lg-4">
+                <div class="card">
+                    <div class="card-body">
+                        <dl class="dlist-align">
+                            <dt>Total price:</dt>
+                            <dd class="text-right">${{ total }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Tax:</dt>
+                            <dd class="text-right"> ${{ tax }}</dd>
+                        </dl>
+                        <dl class="dlist-align">
+                            <dt>Total:</dt>
+                            <dd class="text-right  h5"><strong>${{ grand_total }}</strong></dd>
+                        </dl>
+                        <hr>
+                        <form id="razorpayForm" action="{% url 'payment' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="amount" value="{{ amount }}">
+                            <script src="https://checkout.razorpay.com/v1/checkout.js"
+                                data-key="{{ settings.rzp_test_0wKkzO70vA65D5 }}"
+                                data-amount="{{ amount }}"
+                                data-currency="{{ order_currency }}"
+                                data-name="Your Store"
+                                data-description="Payment"
+                                data-image="{% static 'your-store-logo.png' %}"
+                                data-order_id="{{ order.payment.payment_id }}"
+                                data-buttontext="Pay with Razorpay"
+                                data-prefill.name="{{ order.first_name }} {{ order.last_name }}"
+                                data-prefill.email="{{ order.email }}"
+                                data-theme.color="#f2a900">
+                            </script>
+                            <button type="submit" class="btn btn-primary btn-block">Make Payment</button>
+                        </form>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+</section>
+{% endblock %} {% endcomment %}
+
+
+
+
+{% comment %} <script src="https://www.paypal.com/sdk/js?client-id=AZqbOsqrxcG8Ary7bcsmEhaDPTpLQmLYAew0aV9tO7HpX86dAFMUt-9TJMMDeM7b5whZSyxx3yMt4Zv5&currency=USD"></script>
+<script>
+    // Render the PayPal button into #paypal-button-container
+    var url="{% url 'payment' %}"
+    var csrf_token=getCookie('csrf_token');
+    var orderID="{{order.order_number}}"
+    var payment_method='paypal'
+    paypal.Buttons({
+        style: {
+            color: 'blue',
+            shape: 'pill',
+            label: 'pay',
+            height: 40
+        },
+
+        // Call your server to set up the transaction
+        
+        createOrder: function (data, actions) {
+        return actions.order.create({
+            purchase_units: [{
+                amount: {
+                    value: "{{ grand_total }}"
+                }
+            }]
+        });
+        },
+
+        // Call your server to finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details){
+                console.log(details);
+                sendData();
+                function sendData(){
+                    fetch(url,{
+                        method : "POST"
+                        headers : {
+                            "content-type":"application/json",
+                            "x-CSRF Token": csrftoken,
+
+                        },
+                        body: JSON.stringify({
+                            orderID:orderID,
+                            transID:details.id,
+                            payment_method:payment_method,
+                            status:details.status,
+                        }),
+                    })
+                }
+                // alert('Transaction completed by' + details.payer.name.given_name + '!');
+            });
+        }
+
+    }).render('#paypal-button-container');
+
+    // return fetch('/demo/checkout/api/paypal/order/' + data.orderID + '/capture/', {
+        //     method: 'post'
+        // })
+        //     .then(function (res) {
+        //         return res.json();
+        //     })
+        //     .then(function (orderData) {
+
+
+                // Three cases to handle:
+                //   (1) Recoverable INSTRUMENT_DECLINED -> call actions.restart()
+                //   (2) Other non-recoverable errors -> Show a failure message
+                //   (3) Successful transaction -> Show confirmation or thank you
+
+                // This example reads a v2/checkout/orders capture response, propagated from the server
+                // You could use a different API or structure for your 'orderData'
+
+
+                // var errorDetail = Array.isArray(orderData.details) && orderData.details[0];
+
+                // if (errorDetail && errorDetail.issue === 'INSTRUMENT_DECLINED') {
+                //     return actions.restart();
+                
+                // Recoverable state, per:
+                    // https://developer.paypal.com/docs/checkout/integration-features/funding-failure/
+                
+
+                // if (errorDetail) {
+                //     var msg = 'Sorry, your transaction could not be processed.';
+                //     if (errorDetail.description) msg += '\n\n' + errorDetail.description;
+                //     if (orderData.debug_id) msg += ' (' + orderData.debug_id + ')';
+                //     return alert(msg); // Show a failure message (try to avoid alerts in production environments)
+                // }
+
+                // Successful capture! For demo purposes:
+                // console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                // var transaction = orderData.purchase_units[0].payments.captures[0];
+                // alert('Transaction ' + transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+
+                // Replace the above to show a success message within this page, e.g.
+                // const element = document.getElementById('paypal-button-container');
+                // element.innerHTML = '';
+                // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                // Or go to another URL:  actions.redirect('thank_you.html');
+//             });
+//     }
+// }).render('#paypal-button-container');
+
+        
+</script> {% endcomment %}
